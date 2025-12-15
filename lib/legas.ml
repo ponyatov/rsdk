@@ -10,21 +10,26 @@ let version = "0.0.1"
 let license = "MIT"
 let github = "github: https://github.com/ponyatov/" ^ app
 
+let legas () =
+  mkd "lib";
+  Sys.command "cp legas/legas.ml lib/legas.ml";
+  Sys.command "code lib/legas.ml"
+legas ();;
+
 #use "legas/files.ml"
-lib();;
 files();;
+
+#use "legas/vscode.ml"
+vscode()
 
 #use "legas/git.ml";;
 git();;
 
-let orig = "https://github.com/seladb/PcapPlusPlus.git"
-let tag = "v25.05";;
+#use "legas/ref.ml";;
+ref();
 
-let user = "dponyatov"
-let devserver = "10.120.100.39"
-let devuser = "dev01"
-
-files();
+#use "legas/dev01.ml"
+dev01();
 
 #use "legas/ocaml.ml"
 ocaml();
@@ -34,9 +39,6 @@ doc();
 
 #use "legas/mk.ml"
 mk();
-
-#use "legas/vscode.ml"
-vscode()
 
 #use "legas/cpp.ml"
 hpp();cpp();init();
