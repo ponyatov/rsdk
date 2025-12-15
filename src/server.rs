@@ -24,6 +24,7 @@ const INDEX_FOOT: &[u8] = include_bytes!("../static/foot.html");
 const LOGO_PNG: &[u8] = include_bytes!("../doc/logo.png");
 const CSS_CSS: &[u8] = include_bytes!("../static/css.css");
 const JS_JS: &[u8] = include_bytes!("../static/js.js");
+const CONFIG_JSON: &[u8] = include_bytes!("../etc/config.json");
 // CDN
 const JQUERY_JS: &[u8] = include_bytes!("../static/cdn/jquery.min.js");
 
@@ -36,6 +37,7 @@ const TEXT_HTML: &[u8] = b"Content-Type: text/html; charset=utf-8\r\n";
 const TEXT_PLAIN: &[u8] = b"Content-Type: text/plain; charset=utf-8\r\n";
 const TEXT_CSS: &[u8] = b"Content-Type: text/css\r\n";
 const TEXT_JS: &[u8] = b"Content-Type: application/javascript\r\n";
+const TEXT_JSON: &[u8] = b"Content-Type: text/json\r\n";
 const IMAGE_PNG: &[u8] = b"Content-Type: image/png\r\n";
 
 fn error_404(client: &mut TcpStream, request: &[u8]) {
@@ -86,6 +88,15 @@ fn js(client: &mut TcpStream, cache: &[u8], body: &[u8]) {
     client.flush().unwrap();
 }
 
+fn json(client: &mut TcpStream, cache: &[u8], body: &[u8]) {
+    client.write(&HTTP_200_OK).unwrap();
+    client.write(&TEXT_JSON).unwrap();
+    client.write(cache).unwrap();
+    client.write(b"\r\n").unwrap();
+    client.write(body).unwrap();
+    client.flush().unwrap();
+}
+
 fn router(client: &mut TcpStream) {
     let mut request = [0; 1024];
     client.read(&mut request).unwrap();
@@ -100,6 +111,7 @@ fn router(client: &mut TcpStream) {
         (b"GET", b"/css.css") => css(client),
         (b"GET", b"/jquery.min.js") => js(client, HTTP_IMMUTABLE, JQUERY_JS),
         (b"GET", b"/js.js") => js(client, HTTP_CACHE, JS_JS),
+        (b"GET", b"/config.json") => json(client, HTTP_IMMUTABLE, CONFIG_JSON),
         _ => error_404(client, &request),
     }
 }
