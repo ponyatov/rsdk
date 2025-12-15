@@ -18,6 +18,8 @@ legas ();;
 
 #use "legas/files.ml"
 files();;
+#use "legas/appfiles.ml"
+appfiles();;
 
 #use "legas/vscode.ml"
 vscode()
@@ -78,5 +80,3 @@ refiles gitref
 (* iterate over ref/${ref} - touch files not exists - mkdir dirs not exists -
    skip dirs: .git *)
 ;;
-
-
