@@ -26,20 +26,6 @@ const CSS_CSS: &[u8] = include_bytes!("../static/css.css");
 const JS_JS: &[u8] = include_bytes!("../static/js.js");
 // CDN
 const JQUERY_JS: &[u8] = include_bytes!("../static/cdn/jquery.min.js");
-// // WASM
-// const APP_WASM: &[u8] = include_bytes!("../bin/waf.wasm");
-
-// const CONFIG_JS: &[u8] = const_format::formatcp!(
-//     "// shared configuration
-// // screen:
-// export const width     = {width};
-// export const height    = {height};
-// export const icon_size = {icon_size};
-// ",
-//     width = config::gui::width,
-//     height = config::gui::height,
-//     icon_size = config::gui::icon_size
-// ).as_bytes();
 
 // HTTP return codes
 const HTTP_200_OK: &[u8] = b"HTTP/1.1 200 OK\r\n";
@@ -51,7 +37,6 @@ const TEXT_PLAIN: &[u8] = b"Content-Type: text/plain; charset=utf-8\r\n";
 const TEXT_CSS: &[u8] = b"Content-Type: text/css\r\n";
 const TEXT_JS: &[u8] = b"Content-Type: application/javascript\r\n";
 const IMAGE_PNG: &[u8] = b"Content-Type: image/png\r\n";
-// const WASM_MODULE: &[u8] = b"Content-Type: application/wasm\r\n";
 
 fn error_404(client: &mut TcpStream, request: &[u8]) {
     client.write(&HTTP_404_NOTFOUND).unwrap();
@@ -101,15 +86,6 @@ fn js(client: &mut TcpStream, cache: &[u8], body: &[u8]) {
     client.flush().unwrap();
 }
 
-// fn wasm(client: &mut TcpStream, body: &[u8]) {
-//     client.write(&HTTP_200_OK).unwrap();
-//     client.write(&WASM_MODULE).unwrap();
-//     client.write(&HTTP_NOCACHE).unwrap();
-//     client.write(b"\r\n").unwrap();
-//     client.write(body).unwrap();
-//     client.flush().unwrap();
-// }
-
 fn router(client: &mut TcpStream) {
     let mut request = [0; 1024];
     client.read(&mut request).unwrap();
@@ -124,8 +100,6 @@ fn router(client: &mut TcpStream) {
         (b"GET", b"/css.css") => css(client),
         (b"GET", b"/jquery.min.js") => js(client, HTTP_IMMUTABLE, JQUERY_JS),
         (b"GET", b"/js.js") => js(client, HTTP_CACHE, JS_JS),
-        //         (b"GET", b"/config.js") => js(client, HTTP_CACHE, CONFIG_JS),
-        //         (b"GET", b"/wasm.wasm") => wasm(client, APP_WASM),
         _ => error_404(client, &request),
     }
 }
