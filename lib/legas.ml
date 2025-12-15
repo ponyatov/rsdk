@@ -34,7 +34,8 @@ ref();
 dev01();
 
 #use "legas/ocaml.ml"
-ocaml();
+ocamldots();
+(* ocaml(); *)
 
 #use "legas/doc.ml"
 doc();
