@@ -5,4 +5,4 @@
 
 github: https://github.com/ponyatov/rsdk
 
-- high-speed traffic generator
+- high-speed UDP traffic generator

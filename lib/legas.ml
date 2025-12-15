@@ -1,7 +1,7 @@
 let app = Sys.getcwd () |> String.split_on_char '/' |> List.rev |> List.hd
 let title = "Rust/DPDK"
 let about = "
-- high-speed traffic generator
+- high-speed UDP traffic generator
 "
 let author = "Dmitry Ponyatov"
 let email = "dponyatov@gmail.com"

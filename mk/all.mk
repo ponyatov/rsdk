@@ -2,6 +2,6 @@
 all:
 	cargo build
 run:
-	cargo run
+	cargo run -- lib/$(APP).ini
 watch:
-	cargo watch
+	cargo watch -x 'run -- lib/$(APP).ini'

@@ -1,5 +1,6 @@
 mod config;
 mod vm;
+mod server;
 
 use memmap2::Mmap;
 use std::fs::File;
@@ -19,6 +20,7 @@ fn main() {
         // eprintln!("{:?}", &mmap[..] as &str);
         io::stdout().write_all(&src[..]).unwrap();
     }
+    server::server();
 }
 
 fn arg(argc: usize, argv: &str) {
