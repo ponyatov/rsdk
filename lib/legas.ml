@@ -1,6 +1,8 @@
 let app = Sys.getcwd () |> String.split_on_char '/' |> List.rev |> List.hd
 let title = "Rust/DPDK"
-let about = "high-speed traffic generator"
+let about = "
+- high-speed traffic generator
+"
 let author = "Dmitry Ponyatov"
 let email = "dponyatov@gmail.com"
 let year = 2025
@@ -9,7 +11,8 @@ let license = "MIT"
 let github = "github: https://github.com/ponyatov/" ^ app
 
 #use "legas/files.ml"
-lib();
+lib();;
+files();;
 
 #use "legas/git.ml";;
 git();;
