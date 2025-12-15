@@ -1,0 +1,14 @@
+[package]
+name        =  "rsdk"
+version     =  "0.0.1"
+description =  "Rust/DPDK"
+authors     = ["Dmitry Ponyatov <dponyatov@gmail.com>"]
+license     =  "MIT"
+repository  =  "github: https://github.com/ponyatov/rsdk"
+edition     =  "2024"
+
+[dependencies]
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc        = "0.2"
+memmap2     = "0.9"
