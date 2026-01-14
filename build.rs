@@ -1,22 +1,19 @@
 // extern crate cmake;
 
 fn main() {
-    let lib = cmake::Config::new("rsdk").build();
-    eprintln!("cargo:rustc-link-search=native={}", lib.display());
-    // // 1. Build the C++ library
+    // 1. Build the C++ library (manual prebuild)
+    // let lib = cmake::Config::new("rsdk").build();
     // let dst = Config::new("libfoo++").build();
 
-    // // 2. Tell Cargo where to find the library
-    // println!("cargo:rustc-link-search=native={}", dst.display());
-    // // 3. Link the static library
-    // println!("cargo:rustc-link-lib=static=foo++");
+    // 2. Tell Cargo where to find the library
+    // eprintln!("cargo:rustc-link-search=native={}", dst.display());
+    println!("cargo:rustc-link-search=native=bin");
+    // 3. Link without 'lib' prefix and '.a' suffix
+    println!("cargo:rustc-link-lib=static=rsdk");
 
-    // // 4. Link the C++ standard library (platform-specific)
-    // let target = std::env::var("TARGET").unwrap();
-    // if target.contains("apple") {
-    //     println!("cargo:rustc-link-lib=dylib=c++");
-    // } else if target.contains("linux") {
-    //     println!("cargo:rustc-link-lib=dylib=stdc++");
-    // }
-    // // Add handling for other platforms (e.g., windows) as needed.
+    // On some platforms, you might need to link C++ standard library
+    let target = std::env::var("TARGET").unwrap();
+    if target.contains("linux") {
+        println!("cargo:rustc-link-lib=dylib=stdc++");
+    }
 }

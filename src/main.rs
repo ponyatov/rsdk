@@ -1,6 +1,11 @@
 #![allow(unused)]
 #![allow(dead_code)]
 
+#[link(name = "rsdk", kind = "static")]
+unsafe extern "C" {
+    unsafe fn rsdk();
+}
+
 mod config;
 mod server;
 mod vm;
@@ -12,7 +17,9 @@ use std::path::Path;
 use std::{io, process};
 
 fn main() {
-    rsdk();
+    unsafe {
+        rsdk();
+    }
     std::process::exit(0);
     //
     let argv: Vec<String> = std::env::args().collect();
