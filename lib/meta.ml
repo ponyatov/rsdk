@@ -1,7 +1,7 @@
 (* let app = Sys.getcwd () |> String.split_on_char '/' |> List.rev |> List.hd *)
 let app = "rsdk"
 let title = "Rust/DPDK"
-let about = "- high-speed UDP traffic generator"
+let about = "- high-speed UDP traffic generator\n"
 
 (* *)
 let user = "dponyatov"

@@ -14,7 +14,7 @@ files();;
 vscode()
 
 #use "legas/git.ml";;
-git();;
+(* git();; *)
 
 #use "legas/ref.ml";;
 ref();
