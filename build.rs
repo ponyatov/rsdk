@@ -19,7 +19,11 @@ fn main() {
     if target.contains("linux") {
         println!("cargo:rustc-link-lib=dylib=stdc++");
     } else if target.contains("windows") {
-        println!("cargo:rustc-link-lib=dylib=msvcrt");
+        // println!("cargo:rustc-link-lib=dylib=msvcrt");
+        println!("cargo:rustc-link-lib=static=stdc++");
+        println!("cargo:rustc-link-lib=static=gcc");
+        println!("cargo:rustc-link-lib=static=pthread");
+        println!("cargo:rustc-link-lib=dylib=m");
     } else {
         std::process::abort();
     }
