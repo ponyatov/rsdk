@@ -244,6 +244,7 @@ name = "rsdk"
 version = "0.0.1"
 dependencies = [
  "bindgen",
+ "cc",
  "cmake",
  "const_format",
  "libc",
