@@ -4,9 +4,19 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
+    // cross-build supported
+    let target = std::env::var("TARGET").unwrap();
+    let host = std::env::var("HOST").unwrap();
+
+    eprintln!("TARGET: {}", target);
+    eprintln!("HOST: {}", host);
+
     // 1. Build the C/C++ library
     // let dst = cmake::Config::new("rsdk").build(); // commented: manual cmake
-    cc::Build::new().file("src/rsdk.cpp");
+    cc::Build::new()
+        .file("src/rsdk.cpp")
+        .include("inc")
+        .compile("rsdk");
 
     // 2. tell cargo where to find libraries
     // eprintln!("cargo:rustc-link-search=native={}", dst.display());
@@ -16,29 +26,30 @@ fn main() {
     println!("cargo:rustc-link-lib=static=rsdk");
 
     // using bindgen for wrapper modules generation
-    let bindings = bindgen::Builder::default()
+    let mut bindings = bindgen::Builder::default()
         // input collects all headers
         .header("inc/rsdk.hpp")
         // invalidate the built crate on any .h changed
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
-        //
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()));
+    //
+    bindings = bindings
         .blocklist_file("stdlib.h")
-        //
-        .generate()
-        .expect("bindings generation error");
-    // write bindings
-    // let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
+        .blocklist_file("stdio.h")
+        .blocklist_file("cstdlib")
+        .blocklist_file("cstdio");
+    //
+    if target.contains("linux") {
+        bindings = bindings.clang_args(&["-DLINUX", "-DI5"]);
+    }
+    //
+    let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
     bindings
-        // .write_to_file(out_path.join("rs.rs"))
-        .write_to_file("src/rsdk.rs")
-        .expect("Couldn't write bindings!");
-
-    // cross-build supported
-    let target = std::env::var("TARGET").unwrap();
-    let host = std::env::var("HOST").unwrap();
-
-    eprintln!("TARGET: {}", target);
-    eprintln!("HOST: {}", host);
+        .use_core()
+        .clang_arg("-DBINDGEN")
+        .generate()
+        .expect("generate")
+        .write_to_file(out_path.join("rsdk.rs"))
+        .expect("write_to_file");
 
     // you might need to link C++ standard library
     if target.contains("linux") {

@@ -1,6 +1,8 @@
 #pragma once
 
-// #include <cstdlib>
-// #include <cstdio>
+#ifndef BINDGEN
+#include <cstdio>
+#include <cstdlib>
+#endif  // BINDGEN
 
 extern "C" void rsdk();

@@ -2,7 +2,6 @@
 #![allow(dead_code)]
 
 mod config;
-mod rsdk;
 mod server;
 mod vm;
 
