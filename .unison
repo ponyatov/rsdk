@@ -6,7 +6,7 @@ label = rsdk sync
 
 # Корневые директории
 root = /home/dponyatov/rsdk
-root = ssh://dimon@10.110.1.101//home/dimon
+root = ssh://dimon@10.110.1.101//home/dimon/rsdk
 
 # Автоматизация
 auto   = true
