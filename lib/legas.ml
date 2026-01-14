@@ -33,7 +33,7 @@ doc();
 mk();
 
 #use "legas/cpp.ml"
-hpp();cpp();init();
+cpplib();
 
 #use "legas/cmake.ml"
 cmake();
