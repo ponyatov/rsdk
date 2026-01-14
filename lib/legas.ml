@@ -10,21 +10,15 @@ Sys.command("code legas/legas.ml lib/meta.ml")|>ignore;
 #use "legas/files.ml"
 files();;
 
+#use "legas/git.ml"
+git();
+
 #use "legas/vscode.ml"
-vscode()
+vscode();
 
-#use "legas/git.ml";;
-(* git();; *)
-
-#use "legas/ref.ml";;
-ref();
-
-#use "legas/dev01.ml"
-dev01();
-
-#use "legas/ocaml.ml"
-ocamldots();
-(* ocaml(); *)
+(* #use "legas/ocaml.ml"
+ocamldots(); *)
+(* dune() *)
 
 #use "legas/doc.ml"
 doc();
@@ -32,14 +26,28 @@ doc();
 #use "legas/mk.ml"
 mk();
 
+#use "legas/ref.ml";;
+ref();
+
 #use "legas/cpp.ml"
-cpplib();
+cpp();
+
+#use "legas/cli.ml"
+cli();
+
+#use "legas/vm.ml"
+vm();
 
 #use "legas/cmake.ml"
 cmake();
 
 #use "legas/rust.ml"
 rust();
+#use "legas/cpp.ml"
+cpplib();
+
+#use "legas/js.ml"
+js();
 
 (* #use "legas/sync.ml" *)
 #use "legas/etc.ml"
