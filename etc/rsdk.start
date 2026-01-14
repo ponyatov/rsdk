@@ -1,0 +1,14 @@
+#!/bin/sh
+. $(dirname $0)/rsdk.config
+# sudo systemctl daemon-reload
+# sudo systemctl enable  rsdk@dponyatov
+# sudo systemctl start   rsdk@dponyatov
+# sudo systemctl status  rsdk@dponyatov
+
+cgcreate -g memory:rsdk
+echo $MAX  | tee /sys/fs/cgroup/rsdk/memory.max
+echo $SWAP | tee /sys/fs/cgroup/rsdk/memory.swap.max
+echo 1     | tee /sys/fs/cgroup/rsdk/memory.oom.group
+# cat /sys/fs/cgroup/rsdk/memory.max
+# cat /sys/fs/cgroup/rsdk/memory.swap.max
+# cat /sys/fs/cgroup/rsdk/memory.oom.group

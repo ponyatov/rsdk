@@ -5,7 +5,7 @@ let about = "- high-speed UDP traffic generator\n"
 
 (* *)
 let user = "dponyatov"
-let ruser = "dimon"
+let devuser = user
 let devserver = "10.110.1.101"
 
 (* *)
@@ -15,4 +15,4 @@ let year = 2026
 let version = "0.0.1"
 let license = "MIT"
 let github = [%string "https://github.com/ponyatov/%{app}"]
-let gitflic = [% string "https://gitflic.ru/project/%{user}/%{app}"]
+let gitflic = [%string "https://gitflic.ru/project/%{user}/%{app}"]

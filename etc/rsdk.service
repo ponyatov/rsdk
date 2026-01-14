@@ -1,0 +1,26 @@
+# sudo ln -fs ~/rsdk/etc/rsdk.service /etc/systemd/system/rsdk@dponyatov.service
+# ls -la /etc/systemd/system/rsdk@dponyatov.service
+# sudo systemctl daemon-reload
+# sudo systemctl enable  rsdk@dponyatov
+# sudo systemctl start   rsdk@dponyatov
+# sudo systemctl status  rsdk@dponyatov
+# sudo systemctl disable rsdk@dponyatov
+# sudo systemctl stop    rsdk@dponyatov
+# sudo systemctl status  rsdk@dponyatov
+
+[Unit]
+Description      = rsdk @ %I
+Wants            = network-online.target
+After            = network.target network-online.target
+
+[Service]
+Type             = oneshot
+RemainAfterExit  = yes
+WorkingDirectory = /home/%i/rsdk
+User             = root
+Group            = root
+ExecStart        = /bin/sh etc/rsdk.start
+ExecStop         = /bin/sh etc/rsdk.stop
+
+[Install]
+WantedBy         = multi-user.target

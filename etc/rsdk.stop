@@ -1,0 +1,9 @@
+#!/bin/sh
+. $(dirname $0)/rsdk.config
+# sudo systemctl daemon-reload
+# sudo systemctl disable rsdk@dponyatov
+# sudo systemctl stop    rsdk@dponyatov
+# sudo systemctl status  rsdk@dponyatov
+
+cgdelete -g memory:rsdk
+# ls -la /sys/fs/cgroup/rsdk
