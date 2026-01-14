@@ -1,3 +1,3 @@
 #include "rsdk.hpp"
 
-void rsdk() {}
+void rsdk() { fprintf(stderr, "Hello, DPDK\n"); }

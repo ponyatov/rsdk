@@ -1,12 +1,8 @@
 #![allow(unused)]
 #![allow(dead_code)]
 
-#[link(name = "rsdk", kind = "static")]
-unsafe extern "C" {
-    unsafe fn rsdk();
-}
-
 mod config;
+mod rsdk;
 mod server;
 mod vm;
 
@@ -18,7 +14,7 @@ use std::{io, process};
 
 fn main() {
     unsafe {
-        rsdk();
+        rsdk::rsdk();
     }
     std::process::exit(0);
     //

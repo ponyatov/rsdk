@@ -1,9 +1,6 @@
-// extern crate cmake;
-
 fn main() {
     // 1. Build the C++ library (manual prebuild)
-    // let lib = cmake::Config::new("rsdk").build();
-    // let dst = Config::new("libfoo++").build();
+    // let dst = cmake::Config::new("rsdk").build();
 
     // 2. Tell Cargo where to find the library
     // eprintln!("cargo:rustc-link-search=native={}", dst.display());
@@ -11,9 +8,24 @@ fn main() {
     // 3. Link without 'lib' prefix and '.a' suffix
     println!("cargo:rustc-link-lib=static=rsdk");
 
-    // On some platforms, you might need to link C++ standard library
+    // cross-build supported
     let target = std::env::var("TARGET").unwrap();
+    let host = std::env::var("HOST").unwrap();
+
+    eprintln!("TARGET: {}", target);
+    eprintln!("HOST: {}", host);
+
+    // you might need to link C++ standard library
     if target.contains("linux") {
         println!("cargo:rustc-link-lib=dylib=stdc++");
+    } else if target.contains("windows") {
+        println!("cargo:rustc-link-lib=dylib=msvcrt");
+    } else {
+        std::process::abort();
     }
+
+    // watch & rebuild
+    println!("cargo:rerun-if-changed=bin/librsdk.a");
+    // println!("cargo:rerun-if-changed=bin/rsdk.lib"); // Windows
+    // println!("cargo:rerun-if-changed=bin/");
 }
