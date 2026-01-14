@@ -2,6 +2,7 @@
 install: $(WS)_install doc ref gz $(RUSTUP)
 	$(MAKE) update
 update : $(WS)_update
+	$(RUSTUP) self update && $(RUSTUP) update
 ref    : $(RF)
 gz     : $(GZ)
 
