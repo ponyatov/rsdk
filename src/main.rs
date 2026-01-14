@@ -1,14 +1,20 @@
+#![allow(unused)]
+#![allow(dead_code)]
+
 mod config;
-mod vm;
 mod server;
+mod vm;
 
 use memmap2::Mmap;
 use std::fs::File;
-use std::io;
 use std::io::Write;
 use std::path::Path;
+use std::{io, process};
 
 fn main() {
+    rsdk();
+    std::process::exit(0);
+    //
     let argv: Vec<String> = std::env::args().collect();
     let _argc = argv.len();
     arg(0, &argv[0]);

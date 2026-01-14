@@ -7,6 +7,10 @@ license         =  "MIT"
 repository      =  "github: https://github.com/ponyatov/rsdk"
 edition         =  "2024"
 
+[build-dependencies]
+cmake           = "0.1"
+bindgen         = "0.72"
+
 [dependencies]
 const_format    = "0.2"
 

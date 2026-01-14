@@ -4,4 +4,6 @@ project(${CMAKE_PROJECT_NAME} VERSION 0.0.1 LANGUAGES C CXX ASM)
 
 include(src)      # scan project for source code files
 
-add_library(rsdk STATIC ${C} ${CP})
+add_library(${CMAKE_PROJECT_NAME} STATIC ${C} ${CP})
+
+install(TARGETS ${CMAKE_PROJECT_NAME} DESTINATION .)
